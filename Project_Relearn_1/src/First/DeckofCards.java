@@ -5,5 +5,20 @@ public class DeckofCards {
 	private static final int NCards = 52;
 	
 	private Card[] deckOfCards;
+	
+	public DeckofCards(){
+		deckOfCards = new Card[NCards];
+		
+		int i = 0;
+		
+		for(int suit = 1; suit <= 4; suit++){
+			for(int rank = 1; rank <= 13; rank++){
+				deckOfCards[i++] = new Card(suit,rank);
+			}
+		}
+		
+	}
+	
+	
 
 }
