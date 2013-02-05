@@ -36,15 +36,44 @@ public class Card {
 	public String getCard(){
 		String currentCard;
 		
-		if(rank == 1){
+		//Assigns the correct suit letter
+		if(suit == 1){
 			currentCard = "D";
 		}
-		else if(rank == 2){
-			currentCard = ""
+		else if(suit == 2){
+			currentCard = "H";
+		}
+		else if(suit == 3){
+			currentCard = "C";
+		}
+		else if(suit ==  4){
+			currentCard = "S";
+		}
+		else{
+			currentCard = "Joker";
 		}
 		
 		
-		return card;
+		//If the card is not a joker, it adds the rank
+		if(currentCard != "Joker"){
+			if(rank == 1){
+				currentCard = "A" + currentCard;
+			}
+			else if(rank == 11){
+				currentCard = "J" + currentCard;
+			}
+			else if(rank == 12){
+				currentCard = "Q" + currentCard;
+			}
+			else if(rank == 13){
+				currentCard = "K" + currentCard;
+			}
+			else{
+				currentCard = String.valueOf(rank) + currentCard;
+			}
+		}
+		
+		return currentCard;
 	}
 	
 	
