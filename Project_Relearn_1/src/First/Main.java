@@ -4,23 +4,16 @@ public class Main {
 	public static void main (String [] args){
 		
 	
-	//Simply here to test EGit commit functionality. 
-	String x = "Hello";
-	String y = "World";
+	DeckofCards firstDeck;
 	
-	System.out.println(x + " " + y);
+	firstDeck = new DeckofCards();
 	
-	// Due to an error on my part I had to force push the above code
+	int i = 0;
 	
-	int answer = 40;
-	int to = 1;
-	int the = 1;
-	int world;
-	
-	world = answer + to + the;
-	
-	System.out.println(world);
-	
+	while(i<52){
+	System.out.println(firstDeck.getCard(i));
+	i++;
+	}
 	
 	}
 	

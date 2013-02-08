@@ -13,10 +13,19 @@ public class DeckofCards {
 		
 		for(int suit = 1; suit <= 4; suit++){
 			for(int rank = 1; rank <= 13; rank++){
-				deckOfCards[i++] = new Card(suit,rank);
+				deckOfCards[i++] = new Card(rank,suit);
 			}
 		}
 		
+	}
+	
+	public String getCard(int number){
+		String card;
+		
+		card = deckOfCards[number].getCard();
+		
+		
+		return card;
 	}
 	
 	
