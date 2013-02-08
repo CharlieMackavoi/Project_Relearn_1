@@ -1,9 +1,7 @@
 package First;
-import java.io.IOException;
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
-import javax.swing.text.BadLocationException;
 
 public class BlackJack {
 	private DeckofCards BJDeck;
