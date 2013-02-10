@@ -12,11 +12,13 @@ public class BlackJack {
 	
 		public BlackJack(){
 			BJDeck = new DeckofCards();
+			BJDeck.shuffleDeck();
 			setBalance(1000);
 		}
 		
 		public BlackJack(DeckofCards newDeck, int inBalance){
 			BJDeck = newDeck;
+			BJDeck.shuffleDeck();
 			setBalance(inBalance);
 		}
 		
@@ -50,6 +52,8 @@ public class BlackJack {
 			System.out.println("Your balance is $" + balance);
 			
 			//Deciding whether to make it text base
+			
+			System.out.println(hit());
 			
 			
 		}
