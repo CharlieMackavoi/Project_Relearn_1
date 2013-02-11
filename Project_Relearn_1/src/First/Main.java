@@ -11,12 +11,6 @@ public class Main {
 	firstDeck = new DeckofCards();
 	
 	int i = 0;
-	/*
-	while(i<52){
-	System.out.println(firstDeck.getCard(i));
-	i++;
-	}
-	*/
 	
 	firstDeck.shuffleDeck();
 	
