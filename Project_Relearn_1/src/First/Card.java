@@ -76,6 +76,11 @@ public class Card {
 		return currentCard;
 	}
 	
+	//Returns the value of the card. Aces are 1, Jacks are 11, Queens 12, Kings 13
+	public int cardValue(){
+		return rank;
+	}
+	
 	
 	
 	

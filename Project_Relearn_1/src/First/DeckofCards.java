@@ -19,13 +19,21 @@ public class DeckofCards {
 		
 	}
 	
+	
+	//Returns the value of the card
+	public int cardValue(int number){
+			int card;
+			card = deckOfCards[number].cardValue();
+		return card;
+	}
+	
+	
+	
 	//Gets a card from a position in the deck
 	public String getCard(int number){
-		String card;
-		
-		card = deckOfCards[number].getCard();
-		
-		
+			String card;
+			card = deckOfCards[number].getCard();
+
 		return card;
 	}
 	
