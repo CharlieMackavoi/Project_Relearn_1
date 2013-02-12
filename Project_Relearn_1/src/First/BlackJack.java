@@ -35,7 +35,6 @@ public class BlackJack {
 		}
 
 		public String hit(int player){
-			boolean flag = false; //Flag for hands with the special case (ACES)
 			int cardValue;
 				if(cardCounter >= 52){
 					BJDeck.shuffleDeck();
@@ -52,29 +51,37 @@ public class BlackJack {
 						
 						//Aces have the value of 1 or 11 depending on whether the player will be over 21
 						if(cardValue == 1){
-						 flag = true;
+						 ace = true;
 						}
 						
 				
 							if(player == 1){
-									if(flag){
-										if(playerValue > 10){
-											
-										}
-						
-									}
-									playerValue = (playerValue + cardValue);
-					
-								}
+								playerValue = (playerValue + cardValue);
+							}
 							else{
-									if(flag){
-						
-									}
-									dealerValue = (dealerValue + cardValue);
+								dealerValue = (dealerValue + cardValue);
 							}
 				cardCounter++;
 			return current;
 		}
+		
+		//Display the hand value of the player, specifically to handle the special ACE case
+		public void displayHandValue(int player)
+		{
+			if(ace){
+				if(player > 10){
+					System.out.println("Hand Value: " + player);
+				}
+				else{
+					System.out.println("Hand Value: " + player + "/" + (player+10));
+				}
+				
+			}
+			else{
+				System.out.println("Hand Value: " + player);
+			}
+		}
+		
 		
 		public void winHand(int bet){
 			//If you beat the dealer
@@ -92,6 +99,14 @@ public class BlackJack {
 			else{
 				balance = balance - bet;
 			}
+		}
+		
+		//Resets all flags/values for a new hand
+		public void newHand(){
+			ace = false;
+			winner = false;
+			dealerValue = 0;
+			playerValue = 0;
 		}
 		
 		
@@ -112,25 +127,26 @@ public class BlackJack {
 			
 			
 			do{
-			System.out.println("Place your bet between $5-$100");
-			Scanner current_Bet = new Scanner( System.in ); //Needs exception handling
-			bet = current_Bet.nextInt();
+				System.out.println("Place your bet between $5-$100");
+				Scanner current_Bet = new Scanner( System.in ); //Needs exception handling
+				bet = current_Bet.nextInt();
 			
 			
-			System.out.println("Dealer");
-			System.out.println(hit(dealer));
-			System.out.println("XX");
-			System.out.println(" ");
-			System.out.println("Your Cards");
-			System.out.print(hit(player) + " ");
-			System.out.println(hit(player));
-			System.out.println(playerValue);
+				System.out.println("Dealer");
+				System.out.println(hit(dealer));
+				System.out.println("XX");
+				System.out.println(" ");
+				System.out.println("Your Cards");
+				System.out.print(hit(player) + " ");
+				System.out.println(hit(player));
+				displayHandValue(playerValue);
 			
 			
-			winHand(bet);
+				winHand(bet);
+				newHand();
 			
+				System.out.println("Current balance: " + balance);
 			
-			System.out.println("Current balance: " + balance);
 			}while(balance > 0);
 		}
 
