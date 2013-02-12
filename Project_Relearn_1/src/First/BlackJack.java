@@ -4,12 +4,15 @@ import java.util.Scanner;
 
 
 public class BlackJack {
+	private static final int BJ_BONUS = 2; //This is the bonus multiplier the player receives for getting a BlackJack
 	private DeckofCards BJDeck;
 	private int cardCounter = 0;
 	private int balance;
 	private String current;
 	private int playerValue = 0; //Cards total to check for BJ for the player
 	private int dealerValue = 0; //Cards total to check for BJ for the dealer
+	private boolean ace = false;
+	private boolean winner = false;
 	
 		public BlackJack(){
 			BJDeck = new DeckofCards();
@@ -73,6 +76,24 @@ public class BlackJack {
 			return current;
 		}
 		
+		public void winHand(int bet){
+			//If you beat the dealer
+			if(winner){
+				//If player receives Blackjack
+				if(ace && playerValue == 21){
+					balance = (balance + (bet*BJ_BONUS));
+				}
+				//Simply beat dealer
+				else{
+					balance = balance + bet;
+				}
+			}
+			//You bust/Dealer beat you
+			else{
+				balance = balance - bet;
+			}
+		}
+		
 		
 		//Needs exception handling
 		@SuppressWarnings("resource")
@@ -88,9 +109,6 @@ public class BlackJack {
 			Scanner user_input = new Scanner( System.in );
 			balance = user_input.nextInt();
 			System.out.println("Your balance is $" + balance);
-		
-			
-			//Deciding whether to make it text base
 			
 			
 			do{
@@ -104,14 +122,15 @@ public class BlackJack {
 			System.out.println("XX");
 			System.out.println(" ");
 			System.out.println("Your Cards");
-			System.out.println(hit(player));
+			System.out.print(hit(player) + " ");
 			System.out.println(hit(player));
 			System.out.println(playerValue);
 			
 			
+			winHand(bet);
 			
 			
-			
+			System.out.println("Current balance: " + balance);
 			}while(balance > 0);
 		}
 
