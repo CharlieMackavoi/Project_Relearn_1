@@ -40,7 +40,35 @@ public class BlackJack {
 				}
 				current = BJDeck.getCard(cardCounter);
 				cardValue = BJDeck.cardValue(cardCounter);
-			
+				
+				//This section helps break down the values of the cards
+				        //10's, J's, Q's, K's all have a value of 10 in BJ
+						if(cardValue > 10){
+							cardValue = 10;
+						}
+						
+						//Aces have the value of 1 or 11 depending on whether the player will be over 21
+						if(cardValue == 1){
+						 flag = true;
+						}
+						
+				
+							if(player == 1){
+									if(flag){
+										if(playerValue > 10){
+											
+										}
+						
+									}
+									playerValue = (playerValue + cardValue);
+					
+								}
+							else{
+									if(flag){
+						
+									}
+									dealerValue = (dealerValue + cardValue);
+							}
 				cardCounter++;
 			return current;
 		}
