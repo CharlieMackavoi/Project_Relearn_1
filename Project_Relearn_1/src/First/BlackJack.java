@@ -12,7 +12,8 @@ public class BlackJack {
 	private int playerValue = 0; //Cards total to check for BJ for the player
 	private int dealerValue = 0; //Cards total to check for BJ for the dealer
 	private boolean ace = false;
-	private boolean winner = false;
+	private boolean dealerAce = false; //To check for insurance (If I decide to implement that)
+	private String dealersCard;
 	
 		public BlackJack(){
 			BJDeck = new DeckofCards();
@@ -60,6 +61,10 @@ public class BlackJack {
 							}
 							else{
 								dealerValue = (dealerValue + cardValue);
+								if(ace){
+									ace = false;
+									dealerAce = true;
+								}
 							}
 				cardCounter++;
 			return current;
@@ -68,35 +73,69 @@ public class BlackJack {
 		//Display the hand value of the player, specifically to handle the special ACE case
 		public void displayHandValue(int player)
 		{
-			if(ace){
-				if(player > 10){
-					System.out.println("Hand Value: " + player);
-				}
-				else{
-					System.out.println("Hand Value: " + player + "/" + (player+10));
-				}
+				System.out.print("Hand Value: " +  player);
+				if(ace && player <= 10)
+					System.out.print("/" + (player+10));
 				
+				//Over 21 Busts
+				if(player > 21){
+					System.out.println(" BUST!");
+					return;
+				}	
+				System.out.println("   Dealer Shows a " + dealersCard);
+		}
+		
+		public int handValue(int value){
+				int handValue = value;
+					if(ace && value <= 10){
+						handValue = value+10;
+					}
+			return handValue;
+		}
+		
+		public void finishHand(){
+			
+			if(ace){
+				playerValue = handValue(playerValue);
+				if(!dealerAce){
+					ace = false;
+				}
 			}
-			else{
-				System.out.println("Hand Value: " + player);
-			}
+			
+			
+			System.out.print("Dealers hand: " + dealersCard + " ");
+			
+				while(dealerValue < 17){
+					System.out.print(hit(0) + " ");
+				}
+				System.out.println();
+				if(dealerValue > 21)
+					dealerValue = 0;
 		}
 		
 		
 		public void winHand(int bet){
+			//If there is a tie "Push" balance is unaffected
+			if(dealerValue == playerValue){
+				System.out.println("PUSH");
+				return;
+			}
 			//If you beat the dealer
-			if(winner){
+			if(dealerValue < playerValue && playerValue < 22){
 				//If player receives Blackjack
 				if(ace && playerValue == 21){
+					System.out.println("You got Blackjack!!!! A multiplier of" + BJ_BONUS + ", you won $" + bet);
 					balance = (balance + (bet*BJ_BONUS));
 				}
 				//Simply beat dealer
 				else{
+					System.out.println("You won $" + bet);
 					balance = balance + bet;
 				}
 			}
-			//You bust/Dealer beat you
+			//Player bust/Dealer beat player
 			else{
+				System.out.println("You lost $" + bet);
 				balance = balance - bet;
 			}
 		}
@@ -104,7 +143,6 @@ public class BlackJack {
 		//Resets all flags/values for a new hand
 		public void newHand(){
 			ace = false;
-			winner = false;
 			dealerValue = 0;
 			playerValue = 0;
 		}
@@ -114,6 +152,7 @@ public class BlackJack {
 		@SuppressWarnings("resource")
 		public void playBlackJack(){
 			int bet = 0;
+			int choice = 0;
 			int dealer = 0; //Flag for dealer hit
 			int player = 1; //Flag for player hit
 			
@@ -133,19 +172,61 @@ public class BlackJack {
 			
 			
 				System.out.println("Dealer");
-				System.out.println(hit(dealer));
-				System.out.println("XX");
+				dealersCard = hit(dealer);
+				System.out.print(dealersCard);
+				System.out.println(" XX");
 				System.out.println(" ");
 				System.out.println("Your Cards");
 				System.out.print(hit(player) + " ");
 				System.out.println(hit(player));
 				displayHandValue(playerValue);
-			
-			
+				
+				
+					System.out.println("1) Hit 2)Stand 3) Double");
+					current_Bet = new Scanner(System.in);
+					choice = current_Bet.nextInt();
+						
+					
+					if(choice == 3){
+						System.out.println(hit(player));
+						displayHandValue(playerValue);	
+					}
+				
+				
+					if(choice == 1){
+						System.out.println(hit(player));
+						displayHandValue(playerValue);	
+							while(playerValue < 21){
+								System.out.println("1) Hit 2)Stand");
+								current_Bet = new Scanner(System.in);
+								choice = current_Bet.nextInt();
+						
+	
+									if(choice != 1){
+										break;
+									}
+					
+						
+								System.out.println(hit(player));
+								displayHandValue(playerValue);	
+								
+							}
+				
+					}
+					//Only finish dealer hand if player has not "Bust"
+					if(playerValue < 22)
+						finishHand();
+					if(dealerValue > 0){
+						System.out.println("Dealers Value " + dealerValue + "   Your Value " + playerValue);
+					}
+					else{
+						System.out.println("Dealer BUSTS!");
+					}
 				winHand(bet);
 				newHand();
 			
 				System.out.println("Current balance: " + balance);
+				System.out.println();
 			
 			}while(balance > 0);
 		}
