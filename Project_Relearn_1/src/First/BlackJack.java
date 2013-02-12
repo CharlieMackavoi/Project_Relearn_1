@@ -52,8 +52,13 @@ public class BlackJack {
 			System.out.println("Your balance is $" + balance);
 			
 			//Deciding whether to make it text base
-			
+			System.out.println("Your Cards");
 			System.out.println(hit());
+			System.out.println(hit());
+			System.out.println(" ");
+			System.out.println("Dealer");
+			System.out.println(hit());
+			System.out.println("XX");
 			
 			
 		}
