@@ -7,6 +7,7 @@ public class BlackJack {
 	private static final int BJ_BONUS = 2; //This is the bonus multiplier the player receives for getting a BlackJack
 	private DeckofCards BJDeck;
 	private int cardCounter = 0;
+	private int choice = 0;
 	private int balance;
 	private String current;
 	private int playerValue = 0; //Cards total to check for BJ for the player
@@ -145,6 +146,7 @@ public class BlackJack {
 			ace = false;
 			dealerValue = 0;
 			playerValue = 0;
+			choice = 0;
 		}
 		
 		
@@ -152,7 +154,6 @@ public class BlackJack {
 		@SuppressWarnings("resource")
 		public void playBlackJack(){
 			int bet = 0;
-			int choice = 0;
 			int dealer = 0; //Flag for dealer hit
 			int player = 1; //Flag for player hit
 			
@@ -188,6 +189,8 @@ public class BlackJack {
 				System.out.print(hit(player) + " ");
 				System.out.println(hit(player));
 				displayHandValue(playerValue);
+				
+				
 				
 				//Balance needs to be at least twice as big as the bet to double down.
 				if((bet + bet) <= balance){
