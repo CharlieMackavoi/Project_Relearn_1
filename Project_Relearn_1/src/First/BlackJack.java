@@ -166,10 +166,18 @@ public class BlackJack {
 			
 			
 			do{
-				System.out.println("Place your bet between $5-$100");
-				Scanner current_Bet = new Scanner( System.in ); //Needs exception handling
-				bet = current_Bet.nextInt();
-			
+				Scanner current_Bet;
+				
+					do{
+						System.out.print("Place your bet ");
+						current_Bet = new Scanner( System.in ); //Needs exception handling
+						bet = current_Bet.nextInt();
+				
+						if(bet > balance){
+							System.out.println("You can not bet more than your current balance.");
+						}
+				
+					}while(bet > balance);
 			
 				System.out.println("Dealer");
 				dealersCard = hit(dealer);
@@ -181,7 +189,8 @@ public class BlackJack {
 				System.out.println(hit(player));
 				displayHandValue(playerValue);
 				
-				
+				//Balance needs to be at least twice as big as the bet to double down.
+				if((bet + bet) <= balance){
 					System.out.println("1) Hit 2)Stand 3) Double");
 					current_Bet = new Scanner(System.in);
 					choice = current_Bet.nextInt();
@@ -190,29 +199,31 @@ public class BlackJack {
 					if(choice == 3){
 						System.out.println(hit(player));
 						displayHandValue(playerValue);	
-					}
+						bet = bet*2;
+						}
 				
 				
 					if(choice == 1){
 						System.out.println(hit(player));
 						displayHandValue(playerValue);	
+					}
+				}
+				
+					if(choice != 2){
 							while(playerValue < 21){
 								System.out.println("1) Hit 2)Stand");
 								current_Bet = new Scanner(System.in);
 								choice = current_Bet.nextInt();
 						
-	
 									if(choice != 1){
 										break;
 									}
 					
-						
 								System.out.println(hit(player));
 								displayHandValue(playerValue);	
-								
 							}
-				
 					}
+				
 					//Only finish dealer hand if player has not "Bust"
 					if(playerValue < 22)
 						finishHand();
@@ -225,7 +236,7 @@ public class BlackJack {
 				winHand(bet);
 				newHand();
 			
-				System.out.println("Current balance: " + balance);
+				System.out.println("Current balance: $" + balance);
 				System.out.println();
 			
 			}while(balance > 0);
