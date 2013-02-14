@@ -160,9 +160,15 @@ public class BlackJack {
 			
 			System.out.println("Welcome to Blackjack!");
 			System.out.println("How much money would you like to play with?");
-			@SuppressWarnings("resource") //Needs Exception handling
-			Scanner user_input = new Scanner( System.in );
-			balance = user_input.nextInt();
+
+			try {
+				Scanner user_input = new Scanner( System.in );
+				balance = user_input.nextInt();
+			} catch (Exception e) {
+				balance = 10;
+				System.out.println("That is not a dollar amount, you bring $10 to the table.");
+				//e.printStackTrace();
+			}
 			System.out.println("Your balance is $" + balance);
 			
 			
@@ -171,14 +177,19 @@ public class BlackJack {
 				
 					do{
 						System.out.print("Place your bet ");
-						current_Bet = new Scanner( System.in ); //Needs exception handling
-						bet = current_Bet.nextInt();
+						try {
+							current_Bet = new Scanner( System.in );
+							bet = current_Bet.nextInt();
+						} catch (Exception e) {
+							System.out.println("That is not a dollar amount.");
+							bet = 0;
+						}
 				
 						if(bet > balance){
 							System.out.println("You can not bet more than your current balance.");
 						}
 				
-					}while(bet > balance);
+					}while(bet > balance || bet < 1);
 			
 				System.out.println("Dealer");
 				dealersCard = hit(dealer);
@@ -208,8 +219,13 @@ public class BlackJack {
 				
 				//Balance needs to be at least twice as big as the bet to double down.
 					System.out.println("1) Hit 2)Stand 3) Double");
-					current_Bet = new Scanner(System.in);
-					choice = current_Bet.nextInt();
+					try {
+						current_Bet = new Scanner(System.in);
+						choice = current_Bet.nextInt();
+					} catch (Exception e) {
+						System.out.println("That isn't an option. Dealer assumes you stand.");
+						choice = 2;
+					}
 						
 					
 					if(choice == 3){
@@ -230,8 +246,13 @@ public class BlackJack {
 						displayHandValue(playerValue);	
 						while(playerValue < 21){
 							System.out.println("1) Hit 2)Stand");
-							current_Bet = new Scanner(System.in);
-							choice = current_Bet.nextInt();
+							try {
+								current_Bet = new Scanner(System.in);
+								choice = current_Bet.nextInt();
+							} catch (Exception e) {
+								System.out.println("That isn't an option. Dealer assumes you stand.");
+								choice = 2;
+							}
 					
 								if(choice != 1){
 									break;
