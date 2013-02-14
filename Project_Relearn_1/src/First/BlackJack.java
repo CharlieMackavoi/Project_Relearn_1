@@ -75,7 +75,7 @@ public class BlackJack {
 		public void displayHandValue(int player)
 		{
 				System.out.print("Hand Value: " +  player);
-				if(ace && player <= 10)
+				if(ace && player <= 11)
 					System.out.print("/" + (player+10));
 				
 				//Over 21 Busts
@@ -88,7 +88,7 @@ public class BlackJack {
 		
 		public int handValue(int value){
 				int handValue = value;
-					if(ace && value <= 10){
+					if(ace && value <= 11){
 						handValue = value+10;
 					}
 			return handValue;
@@ -207,38 +207,39 @@ public class BlackJack {
 				
 				
 				//Balance needs to be at least twice as big as the bet to double down.
-				if((bet + bet) <= balance){
 					System.out.println("1) Hit 2)Stand 3) Double");
 					current_Bet = new Scanner(System.in);
 					choice = current_Bet.nextInt();
 						
 					
 					if(choice == 3){
-						System.out.println(hit(player));
-						displayHandValue(playerValue);	
-						bet = bet*2;
+							if((bet + bet) <= balance){
+									System.out.println(hit(player));
+									displayHandValue(playerValue);	
+									bet = bet*2;
+							}
+							else{
+								System.out.println("You don't have enough balance to double down. You hit.");
+								choice = 1;
+							}
 						}
 				
 				
 					if(choice == 1){
 						System.out.println(hit(player));
 						displayHandValue(playerValue);	
-					}
-				}
-				  //This can be clean up
-					if(choice == 1){
-							while(playerValue < 21){
-								System.out.println("1) Hit 2)Stand");
-								current_Bet = new Scanner(System.in);
-								choice = current_Bet.nextInt();
-						
-									if(choice != 1){
-										break;
-									}
+						while(playerValue < 21){
+							System.out.println("1) Hit 2)Stand");
+							current_Bet = new Scanner(System.in);
+							choice = current_Bet.nextInt();
 					
-								System.out.println(hit(player));
-								displayHandValue(playerValue);	
-							}
+								if(choice != 1){
+									break;
+								}
+				
+							System.out.println(hit(player));
+							displayHandValue(playerValue);	
+						}
 					}
 				
 					//Only finish dealer hand if player has not "Bust"
