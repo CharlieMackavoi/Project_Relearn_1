@@ -191,6 +191,20 @@ public class BlackJack {
 				displayHandValue(playerValue);
 				
 				
+				//If the user gets Blackjack they automatically win the hand
+				if(ace && playerValue == 11){
+					System.out.println("You got Blackjack!!!! You will receive a multiplier of " + BJ_BONUS);
+					System.out.println("You won $" + (bet+bet));
+					balance = balance + (bet + bet);
+					newHand();
+					
+					System.out.println("Current balance: $" + balance);
+					System.out.println();
+					
+					continue;
+				}
+				
+				
 				
 				//Balance needs to be at least twice as big as the bet to double down.
 				if((bet + bet) <= balance){
@@ -211,8 +225,8 @@ public class BlackJack {
 						displayHandValue(playerValue);	
 					}
 				}
-				
-					if(choice != 2){
+				  //This can be clean up
+					if(choice == 1){
 							while(playerValue < 21){
 								System.out.println("1) Hit 2)Stand");
 								current_Bet = new Scanner(System.in);
