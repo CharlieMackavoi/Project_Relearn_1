@@ -144,6 +144,7 @@ public class BlackJack {
 		//Resets all flags/values for a new hand
 		public void newHand(){
 			ace = false;
+			dealerAce = false;
 			dealerValue = 0;
 			playerValue = 0;
 			choice = 0;
