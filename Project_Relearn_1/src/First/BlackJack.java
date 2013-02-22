@@ -86,6 +86,7 @@ public class BlackJack {
 				System.out.println("   Dealer Shows a " + dealersCard);
 		}
 		
+		//Returns the value of a hand
 		public int handValue(int value){
 				int handValue = value;
 					if(ace && value <= 11){
@@ -94,6 +95,7 @@ public class BlackJack {
 			return handValue;
 		}
 		
+		//Once the player stands finish the dealer operations
 		public void finishHand(){
 			
 			if(ace){
